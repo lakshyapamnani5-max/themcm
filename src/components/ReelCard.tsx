@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Play, Pause, Volume2, VolumeX, Maximize2, ExternalLink, X, Clock, MapPin } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { ReelItem } from '../types';
 
 interface ReelCardProps {
@@ -298,10 +299,17 @@ export const ReelCard: React.FC<ReelCardProps> = ({
             </button>
           </div>
 
-          {/* Centered Minimal Play Button with Ambient Glow */}
+          {/* Centered Minimal Play Button with Ambient Pulsing Glow */}
           <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-            <div className="w-16 h-16 rounded-full bg-black/60 backdrop-blur-md border border-[#C8B58C]/80 flex items-center justify-center text-[#C8B58C] shadow-[0_0_30px_rgba(200,181,140,0.3)] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#C8B58C] group-hover:text-[#111111] group-hover:shadow-[0_0_40px_rgba(200,181,140,0.6)]">
-              <Play className="w-6 h-6 fill-current ml-0.5" />
+            <div className="relative flex items-center justify-center">
+              <motion.div
+                animate={{ scale: [1, 1.35, 1], opacity: [0.25, 0.7, 0.25] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                className="absolute inset-0 rounded-full border border-[#C8B58C]/50 pointer-events-none"
+              />
+              <div className="w-16 h-16 rounded-full bg-black/60 backdrop-blur-md border border-[#C8B58C]/80 flex items-center justify-center text-[#C8B58C] shadow-[0_0_30px_rgba(200,181,140,0.3)] transition-all duration-300 group-hover:scale-110 group-hover:bg-[#C8B58C] group-hover:text-[#111111] group-hover:shadow-[0_0_40px_rgba(200,181,140,0.6)]">
+                <Play className="w-6 h-6 fill-current ml-0.5" />
+              </div>
             </div>
           </div>
 

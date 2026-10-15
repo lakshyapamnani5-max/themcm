@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { motion } from 'motion/react';
 import {
   ArrowUpRight,
   Check,
@@ -128,15 +129,21 @@ export const RateCards: React.FC<RateCardsProps> = ({ onSelectPackage }) => {
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[900px] h-[550px] bg-[radial-gradient(ellipse_at_center,rgba(200,181,140,0.15)_0%,rgba(200,181,140,0.04)_50%,transparent_75%)] blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
-        {/* Section Header */}
-        <div className="pb-12 border-b border-white/10">
+        {/* Section Header with Inward Reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="pb-12 border-b border-white/10"
+        >
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white/95">
             Rate Cards
           </h2>
           <p className="mt-2 text-xs md:text-sm text-neutral-400 font-sans max-w-xl">
             "Every celebration is different. Tell us about your plans for a personalised quote."
           </p>
-        </div>
+        </motion.div>
 
         {/* Carousel Container (All Three Cards) */}
         <div
@@ -145,8 +152,12 @@ export const RateCards: React.FC<RateCardsProps> = ({ onSelectPackage }) => {
           className="mt-12 flex gap-6 md:gap-8 overflow-x-auto snap-x snap-mandatory no-scrollbar pb-6 -mx-6 px-6 md:mx-0 md:px-0 scroll-smooth"
         >
           {THREE_RATE_CARDS.map((card, idx) => (
-            <div
+            <motion.div
               key={card.id}
+              initial={{ opacity: 0, y: 45, scale: 0.94 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.75, delay: idx * 0.15, ease: [0.22, 1, 0.36, 1] }}
               className="w-[85vw] sm:w-[420px] md:w-[calc(33.333%-1.35rem)] shrink-0 snap-center flex flex-col"
             >
               <div
@@ -190,7 +201,7 @@ export const RateCards: React.FC<RateCardsProps> = ({ onSelectPackage }) => {
                   </span>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 

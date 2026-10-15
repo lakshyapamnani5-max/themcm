@@ -1,6 +1,28 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { creativeProcess } from '../config/site';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { Sparkles } from 'lucide-react';
+
+const processContainerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const processCardVariants = {
+  hidden: { opacity: 0, y: 40, scale: 0.95 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.75, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 export const CreativeProcess: React.FC = () => {
   return (
@@ -9,8 +31,14 @@ export const CreativeProcess: React.FC = () => {
       <div className="absolute inset-x-0 top-0 h-px bg-[#111111]/10" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-10">
-        {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#111111]/10">
+        {/* Section Header with Inward Reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#111111]/10"
+        >
           <div className="space-y-3">
             <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[#111111]/60">
               <Sparkles className="w-3.5 h-3.5 text-[#C8B58C]" />
@@ -27,14 +55,22 @@ export const CreativeProcess: React.FC = () => {
           <div className="text-xs font-mono tracking-wider uppercase text-[#111111]/50">
             <span>Seamless 4-Stage Journey</span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* 4 Process Cards */}
-        <div className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {/* 4 Process Cards with Staggered Inward Reveal */}
+        <motion.div
+          variants={processContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="mt-14 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+        >
           {creativeProcess.map((step, idx) => (
-            <div
+            <motion.div
               key={step.number}
-              className="relative p-8 rounded-lg bg-[#EFE8DC] border border-[#111111]/10 flex flex-col justify-between hover:border-[#111111]/40 transition-colors group"
+              variants={processCardVariants}
+              whileHover={{ y: -6, transition: { duration: 0.25 } }}
+              className="relative p-8 rounded-lg bg-[#EFE8DC] border border-[#111111]/10 flex flex-col justify-between hover:border-[#111111]/40 transition-colors group shadow-xs"
             >
               <div>
                 <div className="flex items-center justify-between pb-6 border-b border-[#111111]/10">
@@ -67,9 +103,9 @@ export const CreativeProcess: React.FC = () => {
                   </div>
                 ))}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </section>
   );

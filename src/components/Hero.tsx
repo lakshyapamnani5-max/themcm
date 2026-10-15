@@ -1,5 +1,6 @@
 import React from 'react';
-import { ArrowUpRight, ChevronDown } from 'lucide-react';
+import { ArrowUpRight, ChevronDown, Sparkles } from 'lucide-react';
+import { motion } from 'motion/react';
 import { ASSETS, siteConfig } from '../config/site';
 
 interface HeroProps {
@@ -10,13 +11,24 @@ interface HeroProps {
 export const Hero: React.FC<HeroProps> = ({ onOpenEnquiry, onExploreWork }) => {
   return (
     <section className="relative min-h-[100dvh] w-full flex flex-col justify-between bg-[#0e0e0e] text-[#F5F0E7] overflow-hidden">
-      {/* Full 9:16 Background Image with Ambient Scrim */}
-      <div className="absolute inset-0 z-0">
-        <img
+      {/* Full 9:16 Background Image with Ambient Scrim & Cinematic Zoom-Inward */}
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <motion.img
           src={ASSETS.heroBanner}
           alt="The Main Character Media Atmosphere"
           referrerPolicy="no-referrer"
-          className="w-full h-full object-cover object-center scale-100 animate-fade-in"
+          initial={{ scale: 1.15, opacity: 0 }}
+          animate={{ scale: 1, opacity: 1 }}
+          transition={{ duration: 1.8, ease: [0.16, 1, 0.3, 1] }}
+          className="w-full h-full object-cover object-center"
+        />
+
+        {/* Ambient Subtle Pulsing Light Effect */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: [0.2, 0.35, 0.2] }}
+          transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute -top-32 left-1/3 w-[600px] h-[600px] bg-[#C8B58C]/15 rounded-full blur-[140px] pointer-events-none"
         />
 
         {/* Multi-stage Scrim for Clean Contrast & Blending */}
@@ -27,36 +39,78 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnquiry, onExploreWork }) => {
       {/* Main Hero Content: Generous Space & Balanced Framing */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pt-40 sm:pt-48 md:pt-52 pb-16 flex-1 flex flex-col justify-center w-full">
         <div className="max-w-4xl space-y-8 md:space-y-10">
-          {/* Oversized Editorial Serif Headline */}
-          <h1 className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.75rem] font-light leading-[1.05] tracking-tight text-white drop-shadow-md text-balance">
-            {siteConfig.tagline}
-          </h1>
+          {/* Subtle Tagline / Pill Entrance */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-[#C8B58C]/30 text-[#C8B58C]"
+          >
+            <Sparkles className="w-3.5 h-3.5 animate-pulse" />
+            <span className="text-[11px] font-mono tracking-[0.22em] uppercase">
+              Creative Content Production
+            </span>
+          </motion.div>
 
-          {/* Action CTAs - Positioned further downwards */}
-          <div className="pt-16 sm:pt-20 md:pt-28 flex flex-col sm:flex-row items-stretch sm:items-center gap-5">
-            <button
+          {/* Oversized Editorial Serif Headline with Inward Stagger */}
+          <motion.h1
+            initial={{ opacity: 0, y: 40, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.75rem] font-light leading-[1.05] tracking-tight text-white drop-shadow-md text-balance"
+          >
+            {siteConfig.tagline}
+          </motion.h1>
+
+          {/* Subcopy Entrance */}
+          <motion.p
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
+            className="text-base sm:text-lg md:text-xl text-neutral-300 max-w-2xl font-light leading-relaxed font-sans"
+          >
+            {siteConfig.heroSubcopy}
+          </motion.p>
+
+          {/* Action CTAs - Smooth Inward Float & Interactive Physics */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            className="pt-6 sm:pt-10 md:pt-14 flex flex-col sm:flex-row items-stretch sm:items-center gap-5"
+          >
+            <motion.button
+              whileHover={{ scale: 1.03, boxShadow: '0 0 35px rgba(200, 181, 140, 0.45)' }}
+              whileTap={{ scale: 0.97 }}
               onClick={onOpenEnquiry}
-              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#C8B58C] text-[#111111] text-xs font-bold tracking-[0.18em] uppercase hover:bg-[#E3D6BC] transition-all duration-200 active:scale-98 shadow-2xl focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-white cursor-pointer"
+              className="inline-flex items-center justify-center gap-2.5 px-8 py-4 bg-[#C8B58C] text-[#111111] text-xs font-bold tracking-[0.18em] uppercase transition-all duration-200 shadow-2xl focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-white cursor-pointer rounded-xs"
             >
               <span>Let's Create</span>
               <ArrowUpRight className="w-4 h-4 text-[#111111]" />
-            </button>
+            </motion.button>
 
-            <button
+            <motion.button
+              whileHover={{ scale: 1.03, backgroundColor: 'rgba(255, 255, 255, 0.15)', borderColor: 'rgba(255, 255, 255, 0.6)' }}
+              whileTap={{ scale: 0.97 }}
               onClick={onExploreWork}
-              className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-black/40 backdrop-blur-md border border-white/30 text-white text-xs font-semibold tracking-[0.18em] uppercase hover:bg-white/15 hover:border-white transition-all duration-200 active:scale-98 cursor-pointer shadow-lg"
+              className="inline-flex items-center justify-center gap-2 px-7 py-4 bg-black/40 backdrop-blur-md border border-white/30 text-white text-xs font-semibold tracking-[0.18em] uppercase transition-all duration-200 cursor-pointer shadow-lg rounded-xs"
             >
               <span>Explore Selected Work</span>
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
       </div>
 
-      {/* Subtle Scroll Down Prompt */}
-      <div className="hidden lg:flex absolute bottom-12 right-10 z-10 flex-col items-center gap-2 text-white/50 text-[10px] font-mono uppercase tracking-widest pointer-events-none">
+      {/* Subtle Scroll Down Prompt with Fade In */}
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 1.2 }}
+        className="hidden lg:flex absolute bottom-12 right-10 z-10 flex-col items-center gap-2 text-white/50 text-[10px] font-mono uppercase tracking-widest pointer-events-none"
+      >
         <span className="[writing-mode:vertical-lr]">Scroll</span>
         <ChevronDown className="w-3.5 h-3.5 animate-bounce text-[#C8B58C]" />
-      </div>
+      </motion.div>
     </section>
   );
 };
