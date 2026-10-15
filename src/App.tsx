@@ -14,6 +14,7 @@ import { RateCards } from './components/RateCards';
 import { EnquiryForm } from './components/EnquiryForm';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { Footer } from './components/Footer';
+import { Fireflies } from './components/Fireflies';
 
 export default function App() {
   const [preselectedEventType, setPreselectedEventType] = useState<string | undefined>(undefined);
@@ -47,7 +48,10 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#F5F0E7] text-[#111111] font-sans selection:bg-[#C8B58C] selection:text-[#111111]">
+    <div className="min-h-screen bg-[#F5F0E7] text-[#111111] font-sans selection:bg-[#C8B58C] selection:text-[#111111] relative">
+      {/* Subtle Celebratory Ambient Fireflies */}
+      <Fireflies />
+
       {/* Editorial Navigation */}
       <Navbar onNavigateToEnquiry={scrollToContact} />
 
