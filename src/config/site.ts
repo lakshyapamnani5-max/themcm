@@ -1,12 +1,13 @@
 import { ReelItem, ServiceCategory, ProcessStep, RatePackage } from '../types';
 
-// Image paths generated for Main Character Media
+// Image and video assets for Main Character Media
 export const ASSETS = {
   heroBanner: '/src/assets/images/hero_cinematic_moment_1792055917139.jpg',
   founderPortrait: '/src/assets/images/founder_prachi_portrait_1792055917956.jpg',
-  reelPoster1: '/src/assets/images/reel_poster_sangeet_1792055917760.jpg',
-  reelPoster2: '/src/assets/images/reel_poster_haldi_1792055919172.jpg',
-  reelPoster3: '/src/assets/images/reel_poster_wedding_1792055919598.jpg',
+  reelPoster1: '/reels/poster_5608.png',
+  reelPoster2: '/reels/poster_5609.png',
+  reelPoster3: '/reels/poster_5610.png',
+  reelPoster4: '/reels/poster_5611.png',
 };
 
 export const siteConfig = {
@@ -42,37 +43,60 @@ export const siteConfig = {
 
 export const portfolioReels: ReelItem[] = [
   {
-    id: 'reel-1',
-    reelId: 'DSp5Kb8jOUrMYHnkgC8MRZUcmueVU6vYpbioU40',
-    title: 'Celebration Moments & Energy',
-    category: 'Weddings & Celebrations',
-    instagramUrl: 'https://www.instagram.com/reel/DSp5Kb8jOUrMYHnkgC8MRZUcmueVU6vYpbioU40/',
+    id: 'reel-5608',
+    reelId: 'IMG_5608',
+    title: 'The Golden Hour Groom Arrival',
+    category: 'Groom Entry & Celebrations',
+    instagramUrl: 'https://www.instagram.com/',
+    directVideoUrl: '/reels/IMG_5608.MP4',
     posterImage: ASSETS.reelPoster1,
     description:
-      'Unfiltered celebration high-energy cuts, spontaneous candid laughter, and vibrant dance floor moments.',
-    date: 'Selected Work',
+      'Golden hour warmth, classic vintage car arrival, and the electrifying anticipation before celebrations ignite.',
+    date: 'Selected Reel',
+    duration: '0:53',
+    location: 'Rajasthan',
   },
   {
-    id: 'reel-2',
-    reelId: 'DRKpCjRjQ4y',
-    title: 'Haldi Vibrance & Joy',
-    category: 'Haldi, Mehendi & Traditions',
-    instagramUrl: 'https://www.instagram.com/reel/DRKpCjRjQ4y/',
+    id: 'reel-5609',
+    reelId: 'IMG_5609',
+    title: 'Just Married Midnight Walk',
+    category: 'Cocktail & Couple Stories',
+    instagramUrl: 'https://www.instagram.com/',
+    directVideoUrl: '/reels/IMG_5609.MP4',
     posterImage: ASSETS.reelPoster2,
     description:
-      'Warm golden tones, marigold showers, unfiltered family joy, and authentic ritual storytelling.',
-    date: 'Selected Work',
+      'Unfiltered smiles, electric chemistry, and the celebratory newlywed exit under dramatic cinematic lighting.',
+    date: 'Selected Reel',
+    duration: '0:34',
+    location: 'Palace Courtyard',
   },
   {
-    id: 'reel-3',
-    reelId: 'DUGJDWJiCRw',
-    title: 'Ceremonies & Unfiltered Love',
-    category: 'Wedding Ceremonies & Love',
-    instagramUrl: 'https://www.instagram.com/reel/DUGJDWJiCRw/',
+    id: 'reel-5610',
+    reelId: 'IMG_5610',
+    title: 'Behrana Sahib Sacred Festivities',
+    category: 'Sacred Rituals & Heritage',
+    instagramUrl: 'https://www.instagram.com/',
+    directVideoUrl: '/reels/IMG_5610.MP4',
     posterImage: ASSETS.reelPoster3,
     description:
-      'Bridal entrance heartbeat, intimate vows, real emotions, and cinematic editorial framing.',
-    date: 'Selected Work',
+      'Soulful hymns, sacred flames, floral offerings, and authentic cultural roots captured in rich cinematic detail.',
+    date: 'Selected Reel',
+    duration: '1:03',
+    location: 'Traditional Heritage',
+  },
+  {
+    id: 'reel-5611',
+    reelId: 'IMG_5611',
+    title: 'Sacred Vows & Bridal Grace',
+    category: 'Wedding Ceremonies & Love',
+    instagramUrl: 'https://www.instagram.com/',
+    directVideoUrl: '/reels/IMG_5611.MP4',
+    posterImage: ASSETS.reelPoster4,
+    description:
+      'Intimate bridal emotions, delicate chooda & ritual details, and timeless wedding promises surrounded by family.',
+    date: 'Selected Reel',
+    duration: '1:27',
+    location: 'Wedding Pavilion',
   },
 ];
 

@@ -9,6 +9,7 @@ export interface ReelItem {
   description: string;
   date?: string;
   location?: string;
+  duration?: string;
 }
 
 export interface ServiceSubcategory {
