@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { X, ExternalLink, Play, Sparkles } from 'lucide-react';
+import { X, ExternalLink, Sparkles, MessageSquare, Clock, MapPin } from 'lucide-react';
 import { ReelItem } from '../types';
+import { siteConfig } from '../config/site';
 
 interface ReelModalProps {
   reel: ReelItem | null;
@@ -42,33 +43,35 @@ export const ReelModal: React.FC<ReelModalProps> = ({ reel, onClose, onEnquireFo
 
   if (!reel) return null;
 
-  // Instagram official embed URL format: https://www.instagram.com/reel/{id}/embed/
   const embedUrl = `https://www.instagram.com/reel/${reel.reelId}/embed/?utm_source=ig_embed`;
+  const whatsappUrl = `https://wa.me/${siteConfig.contact.whatsappNumber}?text=${encodeURIComponent(
+    `Hi Prachi! I saw "${reel.title}" from your cinematic portfolio and would love to check availability for my event.`
+  )}`;
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-6 bg-[#0a0a0a]/90 backdrop-blur-md transition-opacity duration-300"
+      className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 md:p-6 bg-black/90 backdrop-blur-md transition-opacity duration-300"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-label={`Reel viewer: ${reel.title}`}
     >
       <div
-        className="relative w-full max-w-4xl max-h-[92vh] bg-[#161616] border border-white/10 rounded-xl overflow-hidden shadow-2xl flex flex-col md:flex-row text-[#F5F0E7]"
+        className="relative w-full max-w-4xl max-h-[92vh] bg-[#141414] border border-[#C8B58C]/25 rounded-2xl overflow-hidden shadow-2xl flex flex-col md:flex-row text-[#F5F0E7]"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Top-right close button */}
         <button
           ref={closeButtonRef}
           onClick={onClose}
-          className="absolute top-4 right-4 z-20 p-2.5 rounded-full bg-black/60 text-white/80 hover:text-white hover:bg-black/90 transition-all focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#C8B58C]"
+          className="absolute top-3 right-3 md:top-4 md:right-4 z-30 p-2.5 rounded-full bg-black/70 text-white/80 hover:text-white hover:bg-black transition-all border border-white/10 focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-[#C8B58C]"
           aria-label="Close reel viewer"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Video Frame / Instagram Embed (9:16 aspect container) */}
-        <div className="relative w-full md:w-[380px] shrink-0 bg-black flex items-center justify-center aspect-[9/16] max-h-[70vh] md:max-h-[85vh] overflow-hidden">
+        <div className="relative w-full md:w-[380px] shrink-0 bg-black flex items-center justify-center aspect-[9/16] max-h-[50vh] md:max-h-[85vh] overflow-hidden">
           {reel.directVideoUrl ? (
             <video
               src={reel.directVideoUrl}
@@ -76,6 +79,7 @@ export const ReelModal: React.FC<ReelModalProps> = ({ reel, onClose, onEnquireFo
               controls
               autoPlay
               playsInline
+              loop
               className="w-full h-full object-cover"
             />
           ) : (
@@ -92,7 +96,7 @@ export const ReelModal: React.FC<ReelModalProps> = ({ reel, onClose, onEnquireFo
                   <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-black/40">
                     <div className="w-10 h-10 border-2 border-[#C8B58C] border-t-transparent rounded-full animate-spin mb-3" />
                     <span className="text-xs uppercase tracking-widest text-[#C8B58C] font-mono">
-                      Loading Instagram Reel...
+                      Loading Reel...
                     </span>
                   </div>
                 </div>
@@ -135,15 +139,27 @@ export const ReelModal: React.FC<ReelModalProps> = ({ reel, onClose, onEnquireFo
         </div>
 
         {/* Reel Details & Story Context */}
-        <div className="flex-1 p-6 md:p-8 flex flex-col justify-between overflow-y-auto bg-[#161616]">
+        <div className="flex-1 p-6 md:p-8 flex flex-col justify-between overflow-y-auto bg-[#141414]">
           <div className="space-y-4">
-            <div className="flex items-center gap-2 text-xs text-[#C8B58C] font-mono tracking-wider uppercase">
-              <span>{reel.category}</span>
-              <span aria-hidden="true">·</span>
-              <span>{reel.date || 'Selected Reel'}</span>
+            <div className="flex flex-wrap items-center gap-3 text-xs text-[#C8B58C] font-mono tracking-wider uppercase">
+              <span className="bg-[#C8B58C]/10 px-2.5 py-1 rounded-full border border-[#C8B58C]/20">
+                {reel.category}
+              </span>
+              {reel.duration && (
+                <span className="flex items-center gap-1 text-white/60">
+                  <Clock className="w-3 h-3 text-[#C8B58C]" />
+                  {reel.duration}
+                </span>
+              )}
+              {reel.location && (
+                <span className="flex items-center gap-1 text-white/60">
+                  <MapPin className="w-3 h-3 text-[#C8B58C]" />
+                  {reel.location}
+                </span>
+              )}
             </div>
 
-            <h3 className="font-serif text-2xl md:text-3xl text-white font-medium leading-snug">
+            <h3 className="font-serif text-2xl md:text-3xl text-white font-normal leading-snug">
               {reel.title}
             </h3>
 
@@ -154,23 +170,23 @@ export const ReelModal: React.FC<ReelModalProps> = ({ reel, onClose, onEnquireFo
             <div className="pt-4 border-t border-white/10 space-y-2 text-xs text-neutral-400">
               <div className="flex items-center gap-2">
                 <Sparkles className="w-3.5 h-3.5 text-[#C8B58C]" />
-                <span>Captured by Main Character Media</span>
+                <span className="text-[#C8B58C] font-medium">Captured & Edited by The Main Character Media</span>
               </div>
               <p className="leading-normal">
-                Vertical 9:16 format engineered specifically for Instagram Reels, TikTok, and fast mobile storytelling.
+                Vertical 9:16 high-definition cinematic capture engineered for instant engagement, authentic reactions, and unforgettable mobile feeds.
               </p>
             </div>
           </div>
 
           <div className="pt-6 mt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3">
             <a
-              href={reel.instagramUrl}
+              href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 border border-[#C8B58C]/40 text-[#C8B58C] hover:bg-[#C8B58C]/10 text-xs font-semibold tracking-wider uppercase transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#C8B58C] text-[#111111] hover:bg-[#E3D6BC] text-xs font-bold tracking-wider uppercase transition-colors rounded-sm"
             >
-              <span>Open on Instagram</span>
-              <ExternalLink className="w-3.5 h-3.5" />
+              <MessageSquare className="w-3.5 h-3.5" />
+              <span>Book This Style on WhatsApp</span>
             </a>
 
             <button
@@ -178,9 +194,9 @@ export const ReelModal: React.FC<ReelModalProps> = ({ reel, onClose, onEnquireFo
                 onClose();
                 onEnquireForStyle?.(reel.category);
               }}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 bg-[#C8B58C] text-[#111111] hover:bg-[#E3D6BC] text-xs font-bold tracking-wider uppercase transition-colors"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 border border-[#C8B58C]/40 text-[#C8B58C] hover:bg-[#C8B58C]/10 text-xs font-semibold tracking-wider uppercase transition-colors rounded-sm"
             >
-              <span>Enquire For This Style</span>
+              <span>Custom Quote Form</span>
             </button>
           </div>
         </div>

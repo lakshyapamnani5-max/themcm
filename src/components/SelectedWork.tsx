@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import { Sparkles, Film } from 'lucide-react';
 import { portfolioReels } from '../config/site';
 import { ReelItem } from '../types';
 import { ReelCard } from './ReelCard';
@@ -50,32 +51,42 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ onEnquireForStyle })
 
       <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
         {/* Minimal & Aesthetic Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-12 border-b border-white/10">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-10 border-b border-white/10">
           <div>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C8B58C]/10 border border-[#C8B58C]/20 mb-3">
+              <Film className="w-3.5 h-3.5 text-[#C8B58C]" />
+              <span className="text-[11px] font-mono tracking-widest uppercase text-[#C8B58C]">
+                Featured Vertical Cuts
+              </span>
+            </div>
             <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white/95">
               Our Cinematic Portfolio
             </h2>
           </div>
 
-          <div className="flex items-center gap-4">
-            <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#C8B58C]/90">
-              9:16 Vertical
+          <div className="flex items-center gap-3">
+            <span className="text-[11px] font-mono tracking-[0.2em] uppercase text-[#C8B58C]/90 bg-white/5 px-3 py-1.5 rounded-full border border-white/10">
+              9:16 Vertical HD
+            </span>
+            <span className="hidden sm:inline-flex items-center gap-1.5 text-xs text-neutral-400 font-sans">
+              <Sparkles className="w-3.5 h-3.5 text-[#C8B58C]" />
+              Tap card to play inline
             </span>
           </div>
         </div>
 
-        {/* Reels Showcase with Ambient Backlight:
+        {/* Reels Showcase:
             - Mobile: Swipeable Carousel
-            - Desktop: 3-Card Minimal Grid */}
+            - Desktop: 4-Card Luxury Grid */}
         <div
           ref={carouselRef}
           onScroll={handleCarouselScroll}
-          className="mt-10 md:mt-16 flex md:grid md:grid-cols-3 gap-6 md:gap-8 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-6 -mx-6 px-6 md:mx-0 md:px-0"
+          className="mt-10 md:mt-14 flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-6 -mx-6 px-6 md:mx-0 md:px-0"
         >
           {portfolioReels.map((reel) => (
             <div
               key={reel.id}
-              className="w-[82vw] max-w-[340px] md:w-auto shrink-0 snap-center transition-all duration-500"
+              className="w-[82vw] max-w-[320px] md:w-auto shrink-0 snap-center transition-all duration-500"
             >
               <ReelCard
                 reel={reel}
@@ -93,7 +104,7 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ onEnquireForStyle })
             <button
               key={reel.id}
               onClick={() => scrollToIndex(idx)}
-              className={`h-1 rounded-full transition-all duration-300 ${
+              className={`h-1.5 rounded-full transition-all duration-300 ${
                 activeIndex === idx ? 'w-6 bg-[#C8B58C]' : 'w-2 bg-white/20'
               }`}
               aria-label={`Go to reel ${idx + 1}`}
