@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArrowUpRight, ChevronDown, Sparkles } from 'lucide-react';
+import { ArrowUpRight, ChevronDown } from 'lucide-react';
 import { motion } from 'motion/react';
 import { ASSETS, siteConfig } from '../config/site';
 
@@ -39,45 +39,22 @@ export const Hero: React.FC<HeroProps> = ({ onOpenEnquiry, onExploreWork }) => {
       {/* Main Hero Content: Generous Space & Balanced Framing */}
       <div className="relative z-10 max-w-7xl mx-auto px-6 md:px-10 pt-40 sm:pt-48 md:pt-52 pb-16 flex-1 flex flex-col justify-center w-full">
         <div className="max-w-4xl space-y-8 md:space-y-10">
-          {/* Subtle Tagline / Pill Entrance */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-black/50 backdrop-blur-md border border-[#C8B58C]/30 text-[#C8B58C]"
-          >
-            <Sparkles className="w-3.5 h-3.5 animate-pulse" />
-            <span className="text-[11px] font-mono tracking-[0.22em] uppercase">
-              Creative Content Production
-            </span>
-          </motion.div>
-
           {/* Oversized Editorial Serif Headline with Inward Stagger */}
           <motion.h1
             initial={{ opacity: 0, y: 40, filter: 'blur(6px)' }}
             animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-            transition={{ duration: 1.2, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
             className="font-serif text-5xl sm:text-6xl md:text-7xl lg:text-[5.75rem] font-light leading-[1.05] tracking-tight text-white drop-shadow-md text-balance"
           >
             {siteConfig.tagline}
           </motion.h1>
 
-          {/* Subcopy Entrance */}
-          <motion.p
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="text-base sm:text-lg md:text-xl text-neutral-300 max-w-2xl font-light leading-relaxed font-sans"
-          >
-            {siteConfig.heroSubcopy}
-          </motion.p>
-
           {/* Action CTAs - Smooth Inward Float & Interactive Physics */}
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.85, ease: [0.22, 1, 0.36, 1] }}
-            className="pt-6 sm:pt-10 md:pt-14 flex flex-col sm:flex-row items-stretch sm:items-center gap-5"
+            transition={{ duration: 0.9, delay: 0.55, ease: [0.22, 1, 0.36, 1] }}
+            className="pt-10 sm:pt-14 md:pt-20 flex flex-col sm:flex-row items-stretch sm:items-center gap-5"
           >
             <motion.button
               whileHover={{ scale: 1.03, boxShadow: '0 0 35px rgba(200, 181, 140, 0.45)' }}
