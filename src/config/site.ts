@@ -1,9 +1,11 @@
 import { ReelItem, ServiceCategory, ProcessStep, RatePackage } from '../types';
+import heroBannerImg from '../assets/images/herosection.png';
+import founderPortraitImg from '../assets/images/founder_prachi_portrait_1792055917956.jpg';
 
 // Image and video assets for Main Character Media
 export const ASSETS = {
-  heroBanner: '/src/assets/images/herosection.png',
-  founderPortrait: '/src/assets/images/founder_prachi_portrait_1792055917956.jpg',
+  heroBanner: heroBannerImg || '/images/herosection.png',
+  founderPortrait: founderPortraitImg || '/images/founder_prachi_portrait_1792055917956.jpg',
   reelPoster1: '/reels/poster_5608.png',
   reelPoster2: '/reels/poster_5609.png',
   reelPoster3: '/reels/poster_5610.png',
