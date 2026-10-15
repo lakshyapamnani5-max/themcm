@@ -1,0 +1,8 @@
+{
+  "name": "Main Character Media",
+  "description": "Main Character Media captures weddings, celebrations, and brand stories through cinematic videos, creative Reels, and social-first content.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,34 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Cormorant Garamond", Georgia, serif;
+  --font-sans: "Manrope", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --color-ivory: #F5F0E7;
+  --color-near-black: #111111;
+  --color-charcoal: #242424;
+  --color-champagne: #C8B58C;
+  --color-champagne-light: #E3D6BC;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    color: #111111;
+    background-color: #F5F0E7;
+    scroll-behavior: smooth;
+  }
+
+  ::selection {
+    background-color: #C8B58C;
+    color: #111111;
+  }
+}
+
+/* Subtle custom scrollbar for horizontal reel carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
