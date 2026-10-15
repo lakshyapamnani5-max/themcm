@@ -2,7 +2,7 @@ import { ReelItem, ServiceCategory, ProcessStep, RatePackage } from '../types';
 
 // Image and video assets for Main Character Media
 export const ASSETS = {
-  heroBanner: '/src/assets/images/hero_cinematic_moment_1792055917139.jpg',
+  heroBanner: '/src/assets/images/herosection.png',
   founderPortrait: '/src/assets/images/founder_prachi_portrait_1792055917956.jpg',
   reelPoster1: '/reels/poster_5608.png',
   reelPoster2: '/reels/poster_5609.png',
