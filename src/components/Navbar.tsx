@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 import { siteConfig } from '../config/site';
 
 interface NavbarProps {
@@ -49,8 +50,11 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToEnquiry }) => {
 
   return (
     <>
-      <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+      <motion.header
+        initial={{ y: -70, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        className={`fixed top-0 left-0 right-0 z-40 transition-colors duration-300 ${
           isScrolled
             ? 'bg-[#111111]/95 backdrop-blur-md border-b border-white/10 py-3.5 shadow-2xl text-[#F5F0E7]'
             : 'bg-gradient-to-b from-black/80 via-black/40 to-transparent py-6 text-white'
@@ -130,7 +134,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onNavigateToEnquiry }) => {
             </button>
           </div>
         </div>
-      </header>
+      </motion.header>
 
       {/* Accessible Mobile Slide-out Menu */}
       {isMobileMenuOpen && (

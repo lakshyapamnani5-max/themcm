@@ -1,5 +1,6 @@
 import React, { useState, useRef } from 'react';
 import { Sparkles, Film } from 'lucide-react';
+import { motion } from 'motion/react';
 import { portfolioReels } from '../config/site';
 import { ReelItem } from '../types';
 import { ReelCard } from './ReelCard';
@@ -8,6 +9,36 @@ import { ReelModal } from './ReelModal';
 interface SelectedWorkProps {
   onEnquireForStyle?: (category: string) => void;
 }
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.18,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+const cardVariants = {
+  hidden: {
+    opacity: 0,
+    y: 55,
+    scale: 0.92,
+    filter: 'blur(8px)',
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    filter: 'blur(0px)',
+    transition: {
+      duration: 0.85,
+      ease: [0.22, 1, 0.36, 1],
+    },
+  },
+};
 
 export const SelectedWork: React.FC<SelectedWorkProps> = ({ onEnquireForStyle }) => {
   const [activeModalReel, setActiveModalReel] = useState<ReelItem | null>(null);
@@ -45,13 +76,26 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ onEnquireForStyle })
   return (
     <section id="work" className="relative py-24 md:py-36 bg-[#0e0e0e] text-[#F5F0E7] overflow-hidden">
       {/* Ambient Light Layers for Minimal Luxury Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-[radial-gradient(ellipse_at_center,rgba(200,181,140,0.18)_0%,rgba(200,181,140,0.06)_45%,transparent_70%)] blur-[100px] pointer-events-none" />
+      <motion.div
+        animate={{
+          scale: [1, 1.1, 1],
+          opacity: [0.15, 0.25, 0.15],
+        }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[850px] h-[550px] bg-[radial-gradient(ellipse_at_center,rgba(200,181,140,0.18)_0%,rgba(200,181,140,0.06)_45%,transparent_70%)] blur-[100px] pointer-events-none"
+      />
       <div className="absolute -top-24 left-1/4 w-[400px] h-[400px] bg-[#C8B58C]/10 rounded-full blur-[120px] pointer-events-none" />
       <div className="absolute -bottom-24 right-1/4 w-[400px] h-[400px] bg-[#C8B58C]/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-10 relative z-10">
-        {/* Minimal & Aesthetic Section Header */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-10 border-b border-white/10">
+        {/* Minimal & Aesthetic Section Header with Inward Reveal */}
+        <motion.div
+          initial={{ opacity: 0, y: 35, filter: 'blur(4px)' }}
+          whileInView={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="flex flex-col sm:flex-row sm:items-end justify-between gap-6 pb-10 border-b border-white/10"
+        >
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#C8B58C]/10 border border-[#C8B58C]/20 mb-3">
               <Film className="w-3.5 h-3.5 text-[#C8B58C]" />
@@ -73,20 +117,25 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ onEnquireForStyle })
               Tap card to play inline
             </span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Reels Showcase:
+        {/* Reels Showcase with Staggered Inward Reveal:
             - Mobile: Swipeable Carousel
             - Desktop: 4-Card Luxury Grid */}
-        <div
+        <motion.div
           ref={carouselRef}
           onScroll={handleCarouselScroll}
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
           className="mt-10 md:mt-14 flex md:grid md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-x-auto md:overflow-visible snap-x snap-mandatory no-scrollbar pb-6 -mx-6 px-6 md:mx-0 md:px-0"
         >
           {portfolioReels.map((reel) => (
-            <div
+            <motion.div
               key={reel.id}
-              className="w-[82vw] max-w-[320px] md:w-auto shrink-0 snap-center transition-all duration-500"
+              variants={cardVariants}
+              className="w-[82vw] max-w-[320px] md:w-auto shrink-0 snap-center"
             >
               <ReelCard
                 reel={reel}
@@ -94,9 +143,9 @@ export const SelectedWork: React.FC<SelectedWorkProps> = ({ onEnquireForStyle })
                 onTogglePlayInline={handleTogglePlayInline}
                 onOpenModal={(r) => setActiveModalReel(r)}
               />
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Minimal Pagination Dots on Mobile */}
         <div className="flex md:hidden items-center justify-center gap-2 mt-2">

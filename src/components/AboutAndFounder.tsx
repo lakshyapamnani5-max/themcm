@@ -1,8 +1,28 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { ASSETS, siteConfig, specialCapabilities } from '../config/site';
 import { Sparkles, Video, Instagram, Zap, Clock, Compass } from 'lucide-react';
 
 const capabilityIcons = [Video, Sparkles, Instagram, Zap, Clock, Compass];
+
+const cardStagger = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const cardItem = {
+  hidden: { opacity: 0, y: 30 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] },
+  },
+};
 
 export const AboutAndFounder: React.FC = () => {
   return (
@@ -12,7 +32,13 @@ export const AboutAndFounder: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 md:px-10">
         {/* Brand Ethos Overview */}
-        <div className="max-w-4xl space-y-6">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+          className="max-w-4xl space-y-6"
+        >
           <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[#111111]/60">
             <Sparkles className="w-3.5 h-3.5 text-[#C8B58C]" />
             <span>About The Brand</span>
@@ -25,15 +51,26 @@ export const AboutAndFounder: React.FC = () => {
           <p className="text-lg md:text-xl text-[#111111]/85 font-sans font-light leading-relaxed">
             {siteConfig.about.body}
           </p>
-        </div>
+        </motion.div>
 
-        {/* Special Capabilities Grid (6 features) */}
-        <div className="mt-16 pt-12 border-t border-[#111111]/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+        {/* Special Capabilities Grid (6 features) with Inward Stagger */}
+        <motion.div
+          variants={cardStagger}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.15 }}
+          className="mt-16 pt-12 border-t border-[#111111]/10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10"
+        >
           {specialCapabilities.map((cap, idx) => {
             const Icon = capabilityIcons[idx % capabilityIcons.length];
             return (
-              <div key={cap.title} className="space-y-3 group">
-                <div className="w-10 h-10 rounded-xs bg-[#111111]/5 flex items-center justify-center text-[#111111] group-hover:bg-[#111111] group-hover:text-[#C8B58C] transition-colors">
+              <motion.div
+                key={cap.title}
+                variants={cardItem}
+                whileHover={{ y: -4, transition: { duration: 0.25 } }}
+                className="space-y-3 group p-4 -m-4 rounded-xl transition-colors hover:bg-[#EFE9DD]/50"
+              >
+                <div className="w-10 h-10 rounded-xs bg-[#111111]/5 flex items-center justify-center text-[#111111] group-hover:bg-[#111111] group-hover:text-[#C8B58C] transition-colors shadow-xs">
                   <Icon className="w-5 h-5" />
                 </div>
                 <h3 className="font-serif text-xl font-medium text-[#111111] tracking-tight">
@@ -42,17 +79,23 @@ export const AboutAndFounder: React.FC = () => {
                 <p className="text-xs md:text-sm text-[#111111]/70 font-sans leading-relaxed">
                   {cap.description}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
-        </div>
+        </motion.div>
 
         {/* Founder Story Section: Prachi Pamnani */}
         <div className="mt-28 pt-20 border-t border-[#111111]/15">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
-            {/* Left: Founder Portrait */}
-            <div className="lg:col-span-5">
-              <div className="relative group rounded-xl overflow-hidden aspect-[3/4] bg-[#222222] border border-[#111111]/10 shadow-lg">
+            {/* Left: Founder Portrait with Inward Slide & Scale */}
+            <motion.div
+              initial={{ opacity: 0, x: -40, scale: 0.95 }}
+              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-5"
+            >
+              <div className="relative group rounded-xl overflow-hidden aspect-[3/4] bg-[#222222] border border-[#111111]/10 shadow-xl">
                 <img
                   src={ASSETS.founderPortrait}
                   alt="Prachi Pamnani, Founder of Main Character Media"
@@ -75,10 +118,16 @@ export const AboutAndFounder: React.FC = () => {
                 <span>Direct on-ground creative direction</span>
                 <span className="font-mono text-[11px] text-[#111111]/50">Unscripted & Unfiltered</span>
               </div>
-            </div>
+            </motion.div>
 
-            {/* Right: Founder Personal Words */}
-            <div className="lg:col-span-7 space-y-6">
+            {/* Right: Founder Personal Words with Inward Slide */}
+            <motion.div
+              initial={{ opacity: 0, x: 40 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
+              className="lg:col-span-7 space-y-6"
+            >
               <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-[0.2em] text-[#111111]/60">
                 <span>Meet The Founder</span>
               </div>
@@ -98,7 +147,7 @@ export const AboutAndFounder: React.FC = () => {
                 <span className="px-3 py-1.5 bg-[#111111] text-[#F5F0E7]">No Copy-Paste Creativity</span>
                 <span className="px-3 py-1.5 border border-[#111111]/20 text-[#111111]">Stories With Personality</span>
               </div>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
